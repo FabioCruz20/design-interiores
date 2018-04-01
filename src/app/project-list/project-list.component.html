@@ -1,3 +1,7 @@
-<p *ngFor="let person of people">
-    Name: {{person.name}}
-</p>
+<div *ngFor="let projeto of projetos">
+    
+    Descrição: {{ projeto.descricao }}. Nome: {{ projeto.cliente.nome }} 
+    <button type="button" (click)="return">Editar</button>
+    <button type="button" (click)="return">Excluir</button>
+
+</div>
