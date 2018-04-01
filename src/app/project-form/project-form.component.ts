@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms'
+import { DependentComponent } from '../dependent/dependent.component';
+import { ProjetoService } from '../projeto.service';
+
 
 @Component({
     'selector': 'app-project-form',
@@ -10,7 +13,7 @@ export class ProjectFormComponent {
     projectForm: FormGroup;
     //telefones = [''];
 
-    constructor(private builder: FormBuilder) {
+    constructor(private builder: FormBuilder, private projetoService: ProjetoService) {
         this.createForm();
         //console.log(this.tel);
     }
@@ -25,9 +28,10 @@ export class ProjectFormComponent {
                 'cpf': ['', Validators.required],
                 'nome': ['', Validators.required],
                 'endereco': ['', Validators.required],
-                'telefones': this.builder.array([{"numero": ""}]),
+                'telefones': this.builder.array([this.builder.group({"numero": ""})]),
                 'observacoes': '',
-                'dependentes': this.builder.array([{nome: ""}])
+                'dependentes': this.builder.array([this.builder.group({"cpf_dependente": "", "nome_dependente": "", "idade_dependente": 0,
+                "tipo_relacionamento": "", "relacionamento": ""})])
             })
         });
     }
@@ -51,5 +55,31 @@ export class ProjectFormComponent {
         return this.projectForm.get("cliente.dependentes") as FormArray
     }
 
+    addDependente() {
+        this.dependentes.push(this.builder.group({"cpf_dependente": "", "nome_dependente": "", "idade_dependente": 0,
+            "tipo_relacionamento": "", "relacionamento": ""}))  
+        console.log(this.dependentes);
+    }
 
+    removeDependente(indice) {
+        this.dependentes.removeAt(indice);
+    }
+
+    onSubmit() {
+        //console.log(this.projectForm.value);
+        
+        this.projetoService.salvarProjeto(this.projectForm.value).subscribe(res => {
+            //console.log('Criação bem sucedida.')
+            console.log(res);
+            this.projectForm.reset();
+        },
+        error => {
+            //console.log('Erro:')
+            console.log(error);
+        });
+    }
+
+    onReset() {
+        this.projectForm.reset();
+    }
 }
