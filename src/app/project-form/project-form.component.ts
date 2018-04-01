@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms'
-import { DependentComponent } from '../dependent/dependent.component';
+
 import { ProjetoService } from '../projeto.service';
 
 
