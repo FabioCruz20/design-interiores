@@ -1,15 +1,29 @@
 import { Component } from '@angular/core';
 import { ProjectService } from './project.service';
 
+import { ProjetoService } from '../projeto.service';
+
 @Component({
     'selector': 'app-project-list',
     'templateUrl': 'project-list.component.html',
-    'providers': [ProjectService]
+    'providers': [ProjectService],
+    'styleUrls': ['project-list.component.css']
 })
 export class ProjectListComponent {
-    people = [];
-    constructor(public projectService: ProjectService) {
-        this.projectService.getData().then((data) => {this.people = data})
+    projetos;
+    constructor(public projetoService: ProjetoService) {
+    }
+
+    ngOnInit() {
+        this.projetoService.obterProjetos()
+        .subscribe(result => {
+            this.projetos = result;
+            console.log(this.projetos);
+        },
+        error => {
+            console.log('erro:')
+            console.log(error);
+        });       
     }
 
 }

@@ -1,0 +1,19 @@
+a {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+}
+
+.active {
+    border-color: red;
+}
+
+nav {
+    margin-bottom: 10px;
+}
