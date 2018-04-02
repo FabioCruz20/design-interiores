@@ -1,7 +1,7 @@
-<div *ngFor="let projeto of projetos">
+<div *ngFor="let projeto of projetos; let i=index;">
     
     Descrição: {{ projeto.descricao }}. Nome: {{ projeto.cliente.nome }} 
     <button type="button" (click)="return">Editar</button>
-    <button type="button" (click)="return">Excluir</button>
+    <button type="button" (click)="excluir(projeto._id, i)">Excluir</button>
 
 </div>

@@ -12,8 +12,18 @@ export class ProjetoService {
     return this.http.get(this.baseUrl + '/projeto');
   }
 
+  obterProjeto(id) {
+    return this.http.get(this.baseUrl + '/projeto/' + id);
+  }
+
   // @param projeto valor json de formulário com dados do projeto criado.
   salvarProjeto(projeto) {
-    return this.http.post(this.baseUrl + '/projeto/criar', projeto);
+    return this.http.post(this.baseUrl + '/projeto', projeto);
+  }
+
+  excluirProjeto(idProjeto) {
+    console.log('projeto a ser excluído:');
+    console.log(idProjeto);
+    return this.http.delete(this.baseUrl + '/projeto/' + idProjeto);
   }
 }
